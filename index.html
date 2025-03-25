@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloggeringss | Create & Share Your Blogs</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --background-color: #f5f7fa;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --error-color: #e53935;
+            --success-color: #43a047;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .form-container {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--box-shadow);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.2);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .error {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            flex: 1;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .clear-btn {
+            background-color: #e0e0e0;
+            color: var(--text-color);
+        }
+
+        .clear-btn:hover {
+            background-color: #d0d0d0;
+        }
+
+        .blogs-container {
+            margin-top: 40px;
+        }
+
+        .blogs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .blogs-count {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .blog-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .blog-card {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .blog-header {
+            padding: 20px 20px 10px 20px;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .blog-genre {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .blog-content {
+            padding: 0 20px 20px 20px;
+            line-height: 1.6;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 600;
+        }
+
+        .author-email {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .no-blogs {
+            text-align: center;
+            padding: 40px;
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .no-blogs p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .blog-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+
+        .success-message {
+            background-color: var(--success-color);
+            color: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bloggeringss</h1>
+            <p class="tagline">Create and share your thoughts with the world</p>
+        </header>
+
+        <div class="form-container">
+            <h2>Create New Blog</h2>
+            <div id="success-message" class="success-message">Blog published successfully!</div>
+            
+            <form id="blog-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                    <div class="error" id="name-error">Please enter your name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                    <div class="error" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="genre">Genre</label>
+                    <select id="genre">
+                        <option value="">Select a genre</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Lifestyle">Lifestyle</option>
+                        <option value="Health">Health</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Food">Food</option>
+                        <option value="Business">Business</option>
+                        <option value="Education">Education</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="error" id="genre-error">Please select a genre</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="title">Blog Title</label>
+                    <input type="text" id="title" placeholder="Enter blog title">
+                    <div class="error" id="title-error">Please enter a blog title</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="content">Blog Content</label>
+                    <textarea id="content" placeholder="Write your blog content here..."></textarea>
+                    <div class="error" id="content-error">Please enter some content for your blog</div>
+                </div>
+                
+                <div class="buttons">
+                    <button type="submit" class="submit-btn">Publish Blog</button>
+                    <button type="button" class="clear-btn" id="clear-btn">Clear Form</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="blogs-container">
+            <div class="blogs-header">
+                <h2>All Blogs</h2>
+                <span class="blogs-count" id="blogs-count">0 blogs</span>
+            </div>
+            
+            <div id="blog-cards" class="blog-cards">
+                <div class="no-blogs" id="no-blogs">
+                    <p>No blogs published yet. Be the first to share your thoughts!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const blogForm = document.getElementById('blog-form');
+            const clearBtn = document.getElementById('clear-btn');
+            const blogCards = document.getElementById('blog-cards');
+            const noBlogs = document.getElementById('no-blogs');
+            const blogsCount = document.getElementById('blogs-count');
+            const successMessage = document.getElementById('success-message');
+            
+            // Form inputs
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const genreInput = document.getElementById('genre');
+            const titleInput = document.getElementById('title');
+            const contentInput = document.getElementById('content');
+            
+            // Error elements
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const genreError = document.getElementById('genre-error');
+            const titleError = document.getElementById('title-error');
+            const contentError = document.getElementById('content-error');
+            
+            // Load blogs from localStorage
+            let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+            
+            // Update blogs count
+            function updateBlogsCount() {
+                blogsCount.textContent = `${blogs.length} blog${blogs.length !== 1 ? 's' : ''}`;
+            }
+            
+            // Display blogs
+            function displayBlogs() {
+                if (blogs.length === 0) {
+                    noBlogs.style.display = 'block';
+                    blogCards.innerHTML = '';
+                    blogCards.appendChild(noBlogs);
+                } else {
+                    noBlogs.style.display = 'none';
+                    
+                    // Clear existing blogs
+                    blogCards.innerHTML = '';
+                    
+                    // Display blogs in reverse order (newest first)
+                    blogs.slice().reverse().forEach(blog => {
+                        const blogCard = document.createElement('div');
+                        blogCard.className = 'blog-card';
+                        
+                        // Get initials for avatar
+                        const initials = blog.name.split(' ').map(name => name[0]).join('').toUpperCase();
+                        
+                        // Format date
+                        const blogDate = new Date(blog.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        });
+                        
+                        blogCard.innerHTML = `
+                            <div class="blog-header">
+                                <h3 class="blog-title">${blog.title}</h3>
+                                <div class="blog-meta">
+                                    <span>${blogDate}</span>
+                                    <span class="blog-genre">${blog.genre}</span>
+                                </div>
+                            </div>
+                            <div class="blog-content">
+                                <p>${blog.content}</p>
+                            </div>
+                            <div class="blog-author">
+                                <div class="author-avatar">${initials}</div>
+                                <div class="author-info">
+                                    <div class="author-name">${blog.name}</div>
+                                    <div class="author-email">${blog.email}</div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        blogCards.appendChild(blogCard);
+                    });
+                }
+                
+                updateBlogsCount();
+            }
+            
+            // Form submission
+            blogForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset errors
+                nameError.style.display = 'none';
+                emailError.style.display = 'none';
+                genreError.style.display = 'none';
+                titleError.style.display = 'none';
+                contentError.style.display = 'none';
+                
+                // Get values
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                const genre = genreInput.value;
+                const title = titleInput.value.trim();
+                const content = contentInput.value.trim();
+                
+                // Validate form
+                let isValid = true;
+                
+                if (!name) {
+                    nameError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!email || !isValidEmail(email)) {
+                    emailError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!genre) {
+                    genreError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!title) {
+                    titleError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!content) {
+                    contentError.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Create new blog
+                    const newBlog = {
+                        id: Date.now(),
+                        name,
+                        email,
+                        genre,
+                        title,
+                        content: content.replace(/\n/g, '<br>'),
+                        date: new Date().toISOString()
+                    };
+                    
+                    // Add to blogs array
+                    blogs.push(newBlog);
+                    
+                    // Save to localStorage
+                    localStorage.setItem('blogs', JSON.stringify(blogs));
+                    
+                    // Display blogs
+                    displayBlogs();
+                    
+                    // Clear form
+                    blogForm.reset();
+                    
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 3000);
+                    
+                    // Scroll to blogs section
+                    document.querySelector('.blogs-container').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+            
+            // Clear form button
+            clearBtn.addEventListener('click', function() {
+                blogForm.reset();
+                
+                // Reset errors
+                nameError.style.display = 'none';
+                emailError.style.display = 'none';
+                genreError.style.display = 'none';
+                titleError.style.display = 'none';
+                contentError.style.display = 'none';
+            });
+            
+            // Email validation
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            // Initial display
+            displayBlogs();
+        });
+    </script>
+</body>
+</html>
